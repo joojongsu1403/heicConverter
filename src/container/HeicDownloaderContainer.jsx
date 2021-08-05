@@ -11,7 +11,10 @@ const HeicDownloaderContainer = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     imgData.map((data) => {
-      fetch(data)
+      fetch(data, {
+        ContentType: "application/json",
+        Accept: "application/json",
+      })
         .then((res) => res.blob())
         .then((blob) =>
           heic2any({
