@@ -68,7 +68,7 @@ const HeicDownloader = ({
           </label>
           <select onChange={(e) => setImgType(e.target.value)}>
             {imageTypeData.map((data, index) => (
-              <option key={index} value={`image/${data}`}>
+              <option key={index} value={data}>
                 {data}
               </option>
             ))}

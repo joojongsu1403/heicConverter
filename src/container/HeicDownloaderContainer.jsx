@@ -4,13 +4,14 @@ import HeicDownloader from "../components/HeicDownloader";
 
 const HeicDownloaderContainer = () => {
   const [imgData, setImgData] = useState([]);
-  const [imgType, setImgType] = useState("image/jpeg");
+  const [imgType, setImgType] = useState("jpeg");
   const [quality, setQuality] = useState(3);
   const [fileNameList, setFileNameList] = useState([]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    imgData.map((data) => {
+    const list = fileNameList;
+    imgData.map((data, index) => {
       fetch(data, {
         ContentType: "application/json",
         Accept: "application/json",
@@ -19,7 +20,7 @@ const HeicDownloaderContainer = () => {
         .then((blob) =>
           heic2any({
             blob,
-            toType: imgType,
+            toType: `image/${imgType}`,
             quality: quality,
           })
         )
@@ -28,7 +29,7 @@ const HeicDownloaderContainer = () => {
 
           const link = document.createElement("a");
           link.href = url;
-          link.setAttribute("download", `image.jpg`);
+          link.setAttribute("download", `${list[index]}.${imgType}`);
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
